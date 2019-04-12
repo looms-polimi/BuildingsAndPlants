@@ -1,0 +1,44 @@
+within BuildingsAndPlants.Controllers.Test;
+model Test_AWPI_digital
+  extends Templates.BaseClasses.DigitalControlDiagram;
+  Blocks.Digital.AWPI_1dof PI(CSmin = 0, CSstart = 0.2, Ti = 2, K = 3, CSmax = 2) annotation(Placement(transformation(extent = {{-30, 68}, {-10, 88}})));
+  Modelica.Blocks.Continuous.FirstOrder P(k = 1, T = 3, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(Placement(transformation(extent = {{42, 80}, {62, 100}})));
+  Modelica.Blocks.Math.Add add_ld annotation(Placement(transformation(extent = {{8, 80}, {28, 100}})));
+  Modelica.Blocks.Sources.Step SP(startTime = 1) annotation(Placement(transformation(extent = {{-90, 74}, {-70, 94}})));
+  Modelica.Blocks.Sources.Step LD(height = 0.5, startTime = 10) annotation(Placement(transformation(extent = {{-90, 110}, {-70, 130}})));
+  Blocks.Digital.AWPI_1dof_trk PItrk(CSmin = 0, CSstart = 0.2, Ti = 2, K = 3, CSmax = 2) annotation(Placement(transformation(extent = {{-30, 22}, {-10, 42}})));
+  Modelica.Blocks.Continuous.FirstOrder Ptrk(k = 1, T = 3, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(Placement(transformation(extent = {{44, 28}, {64, 48}})));
+  Modelica.Blocks.Sources.BooleanExpression TS(y = time > 3 and time < 5) annotation(Placement(transformation(extent = {{-90, 16}, {-70, 36}})));
+  Modelica.Blocks.Sources.RealExpression TR(y = 0.25) annotation(Placement(transformation(extent = {{-90, -8}, {-70, 12}})));
+  Modelica.Blocks.Continuous.FirstOrder Psatlock(k = 1, T = 3, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(Placement(transformation(extent = {{44, -24}, {64, -4}})));
+  Blocks.Digital.AWPI_1dof_sat_lock PIsatlock(CSmin = 0, CSstart = 0.2, Ti = 2, K = 3, CSmax = 2) annotation(Placement(transformation(extent = {{-30, -30}, {-10, -10}})));
+  Modelica.Blocks.Sources.BooleanExpression Fp(y = false) annotation(Placement(transformation(extent = {{-94, -36}, {-74, -16}})));
+  Modelica.Blocks.Sources.BooleanExpression Fm(y = time > 2.5 and time < 3.5) annotation(Placement(transformation(extent = {{-92, -54}, {-72, -34}})));
+  Blocks.Digital.AWPI_1dof_trk_sat_lock PItrksatlock(CSmin = 0, CSstart = 0.2, Ti = 2, K = 3, CSmax = 2) annotation(Placement(transformation(extent = {{-32, -100}, {-12, -80}})));
+  Modelica.Blocks.Continuous.FirstOrder Ptrksatlock(k = 1, T = 3, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(Placement(transformation(extent = {{44, -94}, {64, -74}})));
+equation
+  connect(PI.CS, add_ld.u2) annotation(Line(points = {{-12, 84}, {6, 84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(add_ld.y, P.u) annotation(Line(points = {{29, 90}, {40, 90}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(P.y, PI.PV) annotation(Line(points = {{63, 90}, {70, 90}, {70, 58}, {-38, 58}, {-38, 78}, {-28, 78}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(SP.y, PI.SP) annotation(Line(points = {{-69, 84}, {-28, 84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(LD.y, add_ld.u1) annotation(Line(points = {{-69, 120}, {-20, 120}, {-20, 96}, {6, 96}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PItrk.SP, PI.SP) annotation(Line(points = {{-28, 38}, {-60, 38}, {-60, 84}, {-28, 84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PItrk.CS, Ptrk.u) annotation(Line(points = {{-12, 38}, {42, 38}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Ptrk.y, PItrk.PV) annotation(Line(points = {{65, 38}, {70, 38}, {70, 6}, {-36, 6}, {-36, 32}, {-28, 32}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(TS.y, PItrk.TS) annotation(Line(points = {{-69, 26}, {-28, 26}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(TR.y, PItrk.TR) annotation(Line(points = {{-69, 2}, {-64, 2}, {-64, 20}, {-28, 20}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PIsatlock.CS, Psatlock.u) annotation(Line(points = {{-12, -14}, {42, -14}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Psatlock.y, PIsatlock.PV) annotation(Line(points = {{65, -14}, {70, -14}, {70, -66}, {-36, -66}, {-36, -20}, {-28, -20}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PIsatlock.SP, PI.SP) annotation(Line(points = {{-28, -14}, {-60, -14}, {-60, 84}, {-28, 84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Fp.y, PIsatlock.Fp) annotation(Line(points = {{-73, -26}, {-48, -26}, {-48, -38}, {-28, -38}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(Fm.y, PIsatlock.Fm) annotation(Line(points = {{-71, -44}, {-28, -44}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(PItrksatlock.SP, PI.SP) annotation(Line(points = {{-30, -84}, {-60, -84}, {-60, 84}, {-28, 84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PItrksatlock.TS, PItrk.TS) annotation(Line(points = {{-30, -96}, {-52, -96}, {-52, 26}, {-28, 26}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(PItrksatlock.TR, PItrk.TR) annotation(Line(points = {{-30, -102}, {-64, -102}, {-64, 20}, {-28, 20}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(PItrksatlock.Fp, PIsatlock.Fp) annotation(Line(points = {{-30, -108}, {-48, -108}, {-48, -38}, {-28, -38}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(PItrksatlock.Fm, PIsatlock.Fm) annotation(Line(points = {{-30, -114}, {-56, -114}, {-56, -44}, {-28, -44}}, color = {255, 0, 255}, smooth = Smooth.None));
+  connect(PItrksatlock.CS, Ptrksatlock.u) annotation(Line(points = {{-14, -84}, {42, -84}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Ptrksatlock.y, PItrksatlock.PV) annotation(Line(points = {{65, -84}, {70, -84}, {70, -130}, {-38, -130}, {-38, -90}, {-30, -90}}, color = {0, 0, 127}, smooth = Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -140}, {100, 140}}), graphics), experiment(StopTime = 20), __Dymola_experimentSetupOutput, Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -140}, {100, 140}})));
+end Test_AWPI_digital;
+

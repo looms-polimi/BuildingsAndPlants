@@ -1,0 +1,10 @@
+within BuildingsAndPlants.Components.BaseComponents;
+package HVAC
+  annotation(
+  Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics={  Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248},
+          fillPattern =                                                                                                                                                                             FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Polygon(points = {{40, 40}, {34, 18}, {30, 8}, {28, 0}, {28, -8}, {32, -16}, {36, -20}, {40, -22}, {44, -20}, {48, -16}, {52, -8}, {52, 0}, {50, 8}, {46, 18}, {40, 40}}, lineColor = {0, 100, 255}, smooth = Smooth.None, fillColor = {0, 100, 255},
+          fillPattern =                                                                                                                                                                                                        FillPattern.Solid), Ellipse(extent = {{-54, -20}, {-26, -56}}, lineColor = {240, 0, 0}, fillColor = {240, 0, 0},
+          fillPattern =                                                                                                                                                                                                        FillPattern.Solid), Ellipse(extent = {{-46, 60}, {-34, 46}}, lineColor = {240, 0, 0}, fillColor = {240, 0, 0},
+          fillPattern =                                                                                                                                                                                                        FillPattern.Solid), Rectangle(extent = {{-46, 52}, {-34, -28}}, lineColor = {240, 0, 0}, fillColor = {240, 0, 0},
+          fillPattern =                                                                                                                                                                                                        FillPattern.Solid)}));
+end HVAC;

@@ -1,0 +1,43 @@
+within BuildingsAndPlants.Components.BaseComponents.Test;
+
+model test3_VolumetricPump
+  Modelica.Blocks.Sources.Step step(height = 0.4, offset = 0.2, startTime = 200) annotation(Placement(transformation(extent = {{-36, 16}, {-24, 28}})));
+  Water.Valves.WaterValve_LinChar valveLinChar(cvmax = 1e-5) annotation(Placement(transformation(extent = {{-16, -14}, {4, 6}})));
+  Water.Pumps.WaterPump_Volumetric volumetricPump annotation(Placement(transformation(extent = {{-56, -14}, {-36, 6}})));
+  Modelica.Blocks.Sources.Step step1(height = 0.5, offset = 0.5, startTime = 100) annotation(Placement(transformation(extent = {{-78, 16}, {-66, 28}})));
+  Water.Valves.WaterValve_LinChar valveLinChar1(cvmax = 1e-5) annotation(Placement(transformation(extent = {{-30, 52}, {-10, 72}})));
+  Modelica.Blocks.Sources.Step step2(height = 0.4, offset = 0.2, startTime = 50) annotation(Placement(transformation(extent = {{-54, 82}, {-42, 94}})));
+  Water.Sources.WaterSource_PT_fixed source_PT_fixed2(T0 = 273.15 + 25) annotation(Placement(transformation(extent = {{-100, 52}, {-80, 72}})));
+  Water.Sinks.WaterSink_P_fixed sink_P_fixed2(Pin = 101325) annotation(Placement(transformation(extent = {{88, 52}, {68, 72}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN1 annotation(Placement(transformation(extent = {{20, 52}, {40, 72}})));
+  Water.Sources.WaterSource_PT_fixed source_PT_fixed3(T0 = 273.15 + 25) annotation(Placement(transformation(extent = {{-92, -14}, {-72, 6}})));
+  Water.Sinks.WaterSink_P_fixed sink_P_fixed3(Pin = 101325) annotation(Placement(transformation(extent = {{84, -14}, {64, 6}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN2 annotation(Placement(transformation(extent = {{18, -14}, {38, 6}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN3(Dz = -1) annotation(Placement(transformation(extent = {{-62, 52}, {-42, 72}})));
+  Modelica.Blocks.Sources.Step step3(height = 0.4, offset = 0.2, startTime = 200) annotation(Placement(transformation(extent = {{0, -56}, {12, -44}})));
+  Water.Valves.WaterValve_LinChar valveLinChar2(cvmax = 1e-5) annotation(Placement(transformation(extent = {{24, -86}, {44, -66}})));
+  Water.Pumps.WaterPump_Volumetric volumetricPump1 annotation(Placement(transformation(extent = {{-60, -86}, {-40, -66}})));
+  Modelica.Blocks.Sources.Step step4(height = 0.5, offset = 0.5, startTime = 100) annotation(Placement(transformation(extent = {{-82, -56}, {-70, -44}})));
+  Water.Sources.WaterSource_PT_fixed source_PT_fixed1(T0 = 273.15 + 25) annotation(Placement(transformation(extent = {{-96, -86}, {-76, -66}})));
+  Water.Sinks.WaterSink_P_fixed sink_P_fixed1(Pin = 0) annotation(Placement(transformation(extent = {{86, -86}, {66, -66}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN4 annotation(Placement(transformation(extent = {{-24, -86}, {-4, -66}})));
+equation
+  connect(step2.y, valveLinChar1.cmd) annotation(Line(points = {{-41.4, 88}, {-32, 88}, {-32, 69}, {-24, 69}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(step.y, valveLinChar.cmd) annotation(Line(points = {{-23.4, 22}, {-16, 22}, {-16, 3}, {-10, 3}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(step1.y, volumetricPump.cmd) annotation(Line(points = {{-65.4, 22}, {-58, 22}, {-58, 1.8}, {-51.2, 1.8}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(step3.y, valveLinChar2.cmd) annotation(Line(points = {{12.6, -50}, {20, -50}, {20, -69}, {30, -69}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(step4.y, volumetricPump1.cmd) annotation(Line(points = {{-69.4, -50}, {-62, -50}, {-62, -70.2}, {-55.2, -70.2}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(source_PT_fixed2.water_flange, pipeExchangingN3.water_flange1) annotation(Line(points = {{-82, 62}, {-60, 62}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN3.water_flange2, valveLinChar1.water_flange1) annotation(Line(points = {{-44, 62}, {-28, 62}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(valveLinChar1.water_flange2, pipeExchangingN1.water_flange1) annotation(Line(points = {{-12, 62}, {6, 62}, {6, 62}, {22, 62}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN1.water_flange2, sink_P_fixed2.water_flange) annotation(Line(points = {{38, 62}, {70, 62}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(source_PT_fixed3.water_flange, volumetricPump.water_flange1) annotation(Line(points = {{-74, -4}, {-66, -4}, {-66, -4}, {-54, -4}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(volumetricPump.water_flange2, valveLinChar.water_flange1) annotation(Line(points = {{-38, -4}, {-14, -4}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(valveLinChar.water_flange2, pipeExchangingN2.water_flange1) annotation(Line(points = {{2, -4}, {20, -4}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN2.water_flange2, sink_P_fixed3.water_flange) annotation(Line(points = {{36, -4}, {66, -4}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(source_PT_fixed1.water_flange, volumetricPump1.water_flange1) annotation(Line(points = {{-78, -76}, {-68, -76}, {-68, -76}, {-58, -76}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(volumetricPump1.water_flange2, pipeExchangingN4.water_flange1) annotation(Line(points = {{-42, -76}, {-22, -76}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN4.water_flange2, valveLinChar2.water_flange1) annotation(Line(points = {{-6, -76}, {26, -76}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(valveLinChar2.water_flange2, sink_P_fixed1.water_flange) annotation(Line(points = {{42, -76}, {68, -76}}, color = {0, 0, 0}, smooth = Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics));
+end test3_VolumetricPump;

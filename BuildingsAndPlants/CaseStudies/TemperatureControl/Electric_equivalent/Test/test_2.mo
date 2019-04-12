@@ -1,0 +1,43 @@
+within BuildingsAndPlants.CaseStudies.TemperatureControl.Electric_equivalent.Test;
+
+model test_2
+  parameter Real Klq[2, 5] = 1e5 * [9.9993, 0.0004, 0.0000, 0.0001, 0.0003; 0.0001, 0.0000, 0.0004, 9.9993, 0.0003];
+  LQ_Rooms.Base_Classes.LQ_Base lQ_Base(K = Klq) annotation(Placement(transformation(extent = {{-110, -142}, {-30, -52}})));
+  Rooms.RoomsElectrical rooms(Air1(v(start = 0)), Air2(v(start = 0))) annotation(Placement(transformation(extent = {{2, -136}, {150, -8}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter2(uMax = 1000, uMin = 0) annotation(Placement(transformation(extent = {{-26, -112}, {-16, -102}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = 1000, uMin = 0) annotation(Placement(transformation(extent = {{-26, -92}, {-16, -82}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant noise(k = 0) annotation(Placement(transformation(extent = {{-32, -52}, {-22, -42}})));
+  Modelica.Blocks.Sources.Constant Texternal(k = 8) annotation(Placement(transformation(extent = {{-14, -72}, {-4, -62}})));
+  Modelica.Blocks.Sources.Constant Texternal1(k = 8) annotation(Placement(transformation(extent = {{-34, 84}, {-22, 96}})));
+  Modelica.Blocks.Sources.Constant noise1(k = 0) annotation(Placement(transformation(extent = {{-56, 108}, {-44, 120}})));
+  Controllers.Blocks.Analogue.AWPI_1dof aWPI_analogue(CSmax = 1000, Ti = 5682, K = 27450) annotation(Placement(transformation(extent = {{-84, 84}, {-44, 64}})));
+  Controllers.Blocks.Analogue.AWPI_1dof aWPI_analogue1(CSmax = 1000, Ti = 8268, K = 38816) annotation(Placement(transformation(extent = {{-82, 26}, {-42, 46}})));
+  Rooms.RoomsElectrical rooms1(Air1(v(start = 0)), Air2(v(start = 0))) annotation(Placement(transformation(extent = {{-12, 30}, {144, 150}})));
+  Modelica.Blocks.Sources.CombiTimeTable Troom(columns = {2}, extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, table = [0, 20; 5 * 3600, 20; 8 * 3600, 25; 17 * 3600, 25; 18 * 3600, 22; 23 * 3600, 22; 24 * 3600, 20]) annotation(Placement(transformation(extent = {{-162, 46}, {-142, 66}})));
+  Modelica.Blocks.Sources.CombiTimeTable Troom1(columns = {2}, extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, table = [0, 20; 5 * 3600, 20; 8 * 3600, 25; 17 * 3600, 25; 18 * 3600, 22; 23 * 3600, 22; 24 * 3600, 20]) annotation(Placement(transformation(extent = {{-162, -102}, {-142, -82}})));
+equation
+  connect(rooms.Room2Noise, rooms.Room1Noise) annotation(Line(points = {{42.7, -54.08}, {14, -54.08}, {14, -40}, {42.7, -40}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms.TWall2, lQ_Base.Vc) annotation(Line(points = {{110.78, -104}, {116, -104}, {116, -142}, {-106, -142}, {-106, -128.5}, {-94, -128.5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms.TWall1, lQ_Base.Vb) annotation(Line(points = {{110.78, -91.2}, {124, -91.2}, {124, -146}, {-110, -146}, {-110, -119.5}, {-94, -119.5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms.TinsideWall, lQ_Base.Ve) annotation(Line(points = {{110.78, -78.4}, {132, -78.4}, {132, -152}, {-116, -152}, {-116, -110.5}, {-94, -110.5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms.Troom2, lQ_Base.Vd) annotation(Line(points = {{110.78, -52.8}, {124, -52.8}, {124, -20}, {-108, -20}, {-108, -74.5}, {-94, -74.5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(lQ_Base.u1, limiter1.u) annotation(Line(points = {{-45.2, -88}, {-36, -88}, {-36, -87}, {-27, -87}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(limiter1.y, rooms.heater1) annotation(Line(points = {{-15.5, -87}, {11.25, -87}, {11.25, -89.92}, {42.7, -89.92}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(limiter2.y, rooms.heater2) annotation(Line(points = {{-15.5, -107}, {11.25, -107}, {11.25, -104}, {42.7, -104}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(lQ_Base.u2, limiter2.u) annotation(Line(points = {{-45.2, -106}, {-36, -106}, {-36, -107}, {-27, -107}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms.Troom1, lQ_Base.Va) annotation(Line(points = {{110.78, -40}, {116, -40}, {116, -22}, {-104, -22}, {-104, -65.5}, {-94, -65.5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(noise.y, rooms.Room1Noise) annotation(Line(points = {{-21.5, -47}, {14, -47}, {14, -40}, {42.7, -40}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Texternal.y, rooms.Texternal) annotation(Line(points = {{-3.5, -67}, {13.25, -67}, {13.25, -72}, {42.7, -72}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Texternal1.y, rooms1.Texternal) annotation(Line(points = {{-21.4, 90}, {30.9, 90}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(noise1.y, rooms1.Room1Noise) annotation(Line(points = {{-43.4, 114}, {-8, 114}, {-8, 120}, {30.9, 120}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms1.Room2Noise, rooms1.Room1Noise) annotation(Line(points = {{30.9, 106.8}, {-8, 106.8}, {-8, 120}, {30.9, 120}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(aWPI_analogue.CS, rooms1.heater1) annotation(Line(points = {{-52.2, 74}, {-10, 74}, {-10, 73.2}, {30.9, 73.2}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(aWPI_analogue1.CS, rooms1.heater2) annotation(Line(points = {{-50.2, 36}, {-10, 36}, {-10, 60}, {30.9, 60}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms1.Troom2, aWPI_analogue1.PV) annotation(Line(points = {{102.66, 108}, {118, 108}, {118, 10}, {-88, 10}, {-88, 30.2}, {-74, 30.2}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(rooms1.Troom1, aWPI_analogue.PV) annotation(Line(points = {{102.66, 120}, {118, 120}, {118, 150}, {-88, 150}, {-88, 79.8}, {-76, 79.8}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Troom.y[1], aWPI_analogue.SP) annotation(Line(points = {{-141, 56}, {-110, 56}, {-110, 68.2}, {-76, 68.2}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(aWPI_analogue1.SP, aWPI_analogue.SP) annotation(Line(points = {{-74, 41.8}, {-86, 41.8}, {-86, 42}, {-110, 42}, {-110, 56}, {-110, 56}, {-110, 68.2}, {-76, 68.2}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(Troom1.y[1], lQ_Base.Vref1) annotation(Line(points = {{-141, -92}, {-132, -92}, {-132, -86}, {-94, -86}, {-94, -88}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(lQ_Base.Vref2, lQ_Base.Vref1) annotation(Line(points = {{-94, -97}, {-132, -97}, {-132, -86}, {-94, -86}, {-94, -88}}, color = {0, 0, 127}, smooth = Smooth.None));
+  annotation(Diagram(coordinateSystem(extent = {{-180, -160}, {180, 160}}, preserveAspectRatio = false), graphics), Icon(coordinateSystem(extent = {{-180, -160}, {180, 160}})), experiment(StopTime = 3e+006), __Dymola_experimentSetupOutput(equdistant = false, events = false));
+end test_2;

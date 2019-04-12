@@ -1,0 +1,17 @@
+within BuildingsAndPlants.Components.BaseComponents;
+package Air "Package with models of components with moist air"
+  annotation(
+  Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics={  Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248},
+            fillPattern =                                                                                                                                                                           FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Ellipse(extent = {{-50, 48}, {-2, 6}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-26, 58}, {30, 32}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-60, 30}, {16, -16}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-34, 46}, {56, -20}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-16, 10}, {60, -46}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-54, 4}, {12, -50}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{-26, -18}, {22, -60}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255}), Ellipse(extent = {{4, -14}, {52, -56}}, lineColor = {0, 230, 255},
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, fillColor = {0, 230, 255})}),
+    Documentation(info="<html>
+<p>This package contains models of components with moist air.</p>
+</html>"));
+end Air;

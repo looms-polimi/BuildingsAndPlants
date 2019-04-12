@@ -1,0 +1,44 @@
+within BuildingsAndPlants.Components.BaseComponents.Test;
+model test_Cell_series
+  Modelica.Electrical.Analog.Basic.Ground ground annotation(Placement(transformation(extent = {{-28, -96}, {-8, -76}})));
+  Modelica.Blocks.Sources.Constant const(k = 800) annotation(Placement(transformation(extent = {{-88, 40}, {-68, 60}})));
+  Electrical.PV.Cell cell(Rp = 1e6, Rs = 2e-5, il0 = 2, Kphi = -0.01, irs = 1e-12, dif = 5) annotation(Placement(transformation(extent = {{-38, -56}, {-18, -36}})));
+  Electrical.PV.Cell cell1(Rp = 1e6, Rs = 2e-5, il0 = 2, Kphi = -0.01, irs = 1e-12, dif = 5) annotation(Placement(transformation(extent = {{-38, -32}, {-18, -12}})));
+  Electrical.PV.Cell cell2(Rp = 1e6, Rs = 2e-5, il0 = 2, Kphi = -0.01, irs = 1e-12, dif = 5) annotation(Placement(transformation(extent = {{-38, -8}, {-18, 12}})));
+  Electrical.PV.Cell cell3(Rp = 1e6, Rs = 2e-5, il0 = 2, Kphi = -0.01, irs = 1e-12, dif = 5) annotation(Placement(transformation(extent = {{-38, 16}, {-18, 36}})));
+  Modelica.Electrical.Analog.Basic.Resistor resistor(R = 10) annotation(Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = 270, origin = {76, -10})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G = 2) annotation(Placement(transformation(extent = {{-8, 10}, {2, 20}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T(displayUnit = "degC") = 293.15) annotation(Placement(transformation(extent = {{28, 52}, {48, 72}})));
+  Thermal.Capacities.MassT heatCap(Tstart = 293.15) annotation(Placement(transformation(extent = {{16, -4}, {36, 16}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor1(G = 2) annotation(Placement(transformation(extent = {{-6, -14}, {4, -4}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor2(G = 2) annotation(Placement(transformation(extent = {{-6, -38}, {4, -28}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor3(G = 2) annotation(Placement(transformation(extent = {{-6, -60}, {4, -50}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor4(G = 2) annotation(Placement(transformation(extent = {{40, -8}, {50, 2}})));
+  Modelica.Blocks.Sources.Pulse pulse(amplitude = 1000, period = 10) annotation(Placement(transformation(extent = {{-94, -26}, {-74, -6}})));
+  Modelica.Electrical.Analog.Semiconductors.HeatingDiode diode(useHeatPort = true) annotation(Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = 90, origin = {34, -26})));
+equation
+  connect(const.y, cell3.Phi) annotation(Line(points = {{-67, 50}, {-52, 50}, {-52, 32}, {-36, 32}}, color = {0, 0, 127}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(const.y, cell2.Phi) annotation(Line(points = {{-67, 50}, {-52, 50}, {-52, 8}, {-36, 8}}, color = {0, 0, 127}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(const.y, cell.Phi) annotation(Line(points = {{-67, 50}, {-52, 50}, {-52, -40}, {-36, -40}}, color = {0, 0, 127}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell.n, ground.p) annotation(Line(points = {{-20, -52}, {-20, -76}, {-18, -76}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell.p, cell1.n) annotation(Line(points = {{-20, -40}, {-20, -28}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell1.p, cell2.n) annotation(Line(points = {{-20, -16}, {-20, -4}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell2.p, cell3.n) annotation(Line(points = {{-20, 8}, {-20, 20}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell3.p, resistor.p) annotation(Line(points = {{-20, 32}, {76, 32}, {76, 5.55112e-16}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(resistor.n, ground.p) annotation(Line(points = {{76, -20}, {76, -76}, {-18, -76}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell3.surf, thermalConductor.port_a) annotation(Line(points = {{-30, 18}, {-30, 15}, {-8, 15}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell1.surf, thermalConductor2.port_a) annotation(Line(points = {{-30, -30}, {-30, -33}, {-6, -33}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell.surf, thermalConductor3.port_a) annotation(Line(points = {{-30, -54}, {-30, -55}, {-6, -55}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell2.surf, thermalConductor1.port_a) annotation(Line(points = {{-30, -6}, {-30, -9}, {-6, -9}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(thermalConductor4.port_b, fixedTemperature.port) annotation(Line(points = {{50, -3}, {62, -3}, {62, 62}, {48, 62}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(pulse.y, cell1.Phi) annotation(Line(points = {{-73, -16}, {-36, -16}}, color = {0, 0, 127}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell1.p, diode.n) annotation(Line(points = {{-20, -16}, {34, -16}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell1.n, diode.p) annotation(Line(points = {{-20, -28}, {8, -28}, {8, -36}, {34, -36}}, color = {0, 0, 255}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(cell1.surf, diode.heatPort) annotation(Line(points = {{-30, -30}, {-10, -30}, {-10, -24}, {44, -24}, {44, -26}}, color = {191, 0, 0}, pattern = LinePattern.None, thickness = 1, smooth = Smooth.None));
+  connect(thermalConductor.port_b, thermalConductor1.port_b) annotation(Line(points = {{2, 15}, {4, 15}, {4, -9}}, color = {191, 0, 0}, smooth = Smooth.None));
+  connect(thermalConductor1.port_b, thermalConductor2.port_b) annotation(Line(points = {{4, -9}, {4, -33}}, color = {191, 0, 0}, smooth = Smooth.None));
+  connect(thermalConductor2.port_b, thermalConductor3.port_b) annotation(Line(points = {{4, -33}, {4, -55}}, color = {191, 0, 0}, smooth = Smooth.None));
+  connect(thermalConductor1.port_b, heatCap.surf) annotation(Line(points = {{4, -9}, {16, -9}, {16, -8}, {26, -8}, {26, -2}}, color = {191, 0, 0}, smooth = Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics), experiment(StopTime = 1000), experimentSetupOutput(equdistant = false));
+end test_Cell_series;
+

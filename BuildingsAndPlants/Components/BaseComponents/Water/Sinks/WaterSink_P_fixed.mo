@@ -1,0 +1,16 @@
+within BuildingsAndPlants.Components.BaseComponents.Water.Sinks;
+
+model WaterSink_P_fixed
+  Media.Substances.SubcooledWater water;
+  parameter Pressure Pin = 101325;
+  Interfaces.Water.WaterFlange water_flange annotation(
+  Placement(transformation(extent = {{70, -10}, {90, 10}}), iconTransformation(extent = {{100, -20}, {60, 20}})));
+equation
+  water.p = water_flange.p;
+  water.p = Pin;
+  water_flange.h = inStream(water_flange.h);
+  // enthalpy boundary condition
+  water.h = water_flange.h;
+  annotation(
+  Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics), Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-30, 30}, {70, -30}}, lineColor = {0, 0, 0}, fillColor = {85, 170, 255}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-22, 20}, {18, -20}}, lineColor = {0, 0, 0}, fillColor = {127, 0, 0}, fillPattern = FillPattern.Solid), Polygon(points = {{68, 6}, {68, -6}, {38, -6}, {38, -12}, {18, 0}, {38, 12}, {38, 6}, {68, 6}}, lineColor = {0, 0, 0}, fillColor = {127, 0, 0}, fillPattern = FillPattern.Solid), Text(extent = {{-60, 40}, {-40, 20}}, lineColor = {0, 0, 0}, textString = "P")}));
+end WaterSink_P_fixed;

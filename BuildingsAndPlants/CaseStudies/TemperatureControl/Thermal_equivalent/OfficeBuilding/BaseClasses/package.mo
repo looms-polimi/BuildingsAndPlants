@@ -1,0 +1,3 @@
+within BuildingsAndPlants.CaseStudies.TemperatureControl.Thermal_equivalent.OfficeBuilding;
+package BaseClasses
+end BaseClasses;

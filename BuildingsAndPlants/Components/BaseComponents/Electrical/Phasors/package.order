@@ -1,0 +1,14 @@
+Ground
+Vgen_Sine_Fixed
+Vgen_Sine_Vphi
+Vgen_Sine_VP
+Resistor
+Capacitor
+Inductor
+R_plus_jX
+Load_VPcosphi_nom
+Load_Pcosphi_nom_Pfixed
+Load_Pcosphi_nom_Pin
+TransmissionLine
+PQmeter
+Switch

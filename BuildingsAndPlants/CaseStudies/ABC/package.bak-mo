@@ -1,0 +1,6 @@
+within BuildingsAndPlants.CaseStudies;
+
+package ABC
+  annotation(
+    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
+end ABC;

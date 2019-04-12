@@ -1,0 +1,47 @@
+within BuildingsAndPlants.Components.BaseComponents.Test;
+
+model test2_Pipe
+  Water.Sources.WaterSource_WT source_WT annotation(Placement(transformation(extent = {{-64, 58}, {-44, 78}})));
+  Water.Sources.WaterSource_WT source_WT1 annotation(Placement(transformation(extent = {{-64, -12}, {-44, 8}})));
+  Water.Sinks.WaterSink_P sink_P annotation(Placement(transformation(extent = {{60, 58}, {40, 78}})));
+  Modelica.Blocks.Sources.Ramp ramp(height = 5, offset = 273.15 + 25, startTime = 100, duration = 0) annotation(Placement(transformation(extent = {{-100, 50}, {-86, 64}})));
+  Modelica.Blocks.Sources.Ramp ramp1(height = 0, duration = 2, offset = 273.15 + 50, startTime = 100) annotation(Placement(transformation(extent = {{-100, -28}, {-86, -14}})));
+  Modelica.Blocks.Sources.Constant const(k = 10) annotation(Placement(transformation(extent = {{-98, 84}, {-86, 96}})));
+  Modelica.Blocks.Sources.Constant const1(k = 15) annotation(Placement(transformation(extent = {{-100, 8}, {-84, 24}})));
+  Modelica.Blocks.Sources.Constant const2(k = 2e5) annotation(Placement(transformation(extent = {{94, 62}, {80, 76}})));
+  Water.Sinks.WaterSink_P sink_P1 annotation(Placement(transformation(extent = {{56, -12}, {36, 8}})));
+  Modelica.Blocks.Sources.Constant const3(k = 2e5) annotation(Placement(transformation(extent = {{96, -8}, {82, 6}})));
+  Thermal.HeatTransfer.Convection_VV convVec2Vec(counterFlow = false, n = 4, S = 1, gamma = 40) annotation(Placement(transformation(extent = {{-24, 24}, {-4, 44}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN(n = 4, Dtube = 0.1) annotation(Placement(transformation(extent = {{-24, 78}, {-4, 58}})));
+  Water.Pipes.WaterPipeExchanging_Nvols pipeExchangingN1(n = 4) annotation(Placement(transformation(extent = {{-24, -12}, {-4, 8}})));
+  Thermal.HeatTransfer.Convection_SS convVec2Sca1(S = 1, gamma = 40) annotation(Placement(transformation(extent = {{12, -11}, {-12, 11}}, rotation = -90, origin = {15, -78})));
+  Water.Sources.WaterSource_WT_fixed source_PT_fixed1(T0 = 273.15 + 50, W0 = 0.1) annotation(Placement(transformation(extent = {{-100, -76}, {-80, -56}})));
+  Water.Sinks.WaterSink_P_fixed sink_P_fixed1(Pin = 0) annotation(Placement(transformation(extent = {{-100, -100}, {-80, -80}})));
+  Thermal.Capacities.MassT massT(Tstart = 273.15 + 20) annotation(Placement(transformation(extent = {{28, -62}, {48, -38}})));
+  Thermal.HeatTransfer.Convection_SS convSca2Sca annotation(Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = 90, origin = {62, -78})));
+  Water.Pipes.BaseClasses.WaterPipeExchangingElement pipeExchanging annotation(Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = -90, origin = {-6, -78})));
+  Water.Pipes.BaseClasses.WaterPipeExchangingElement pipeExchangingN3(Tstart = 273.15 + 50) annotation(Placement(transformation(extent = {{-60, -76}, {-40, -56}})));
+  Water.Pipes.BaseClasses.WaterPipeExchangingElement pipeExchangingN4(Tstart = 273.15 + 50) annotation(Placement(transformation(extent = {{-40, -80}, {-60, -100}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature source_T_fixed1(T = 273.15 + 5) annotation(Placement(transformation(extent = {{98, -84}, {84, -70}})));
+equation
+  connect(const.y, source_WT.Win) annotation(Line(points = {{-85.4, 90}, {-80, 90}, {-80, 71}, {-59.2, 71}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(sink_P1.Pin, const3.y) annotation(Line(points = {{51.2, -2}, {66, -2}, {66, -1}, {81.3, -1}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(sink_P.Pin, const2.y) annotation(Line(points = {{55.2, 68}, {68, 68}, {68, 69}, {79.3, 69}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(ramp.y, source_WT.Tin) annotation(Line(points = {{-85.3, 57}, {-80, 57}, {-80, 65}, {-59.2, 65}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(const1.y, source_WT1.Win) annotation(Line(points = {{-83.2, 16}, {-72, 16}, {-72, 1}, {-59.2, 1}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(ramp1.y, source_WT1.Tin) annotation(Line(points = {{-85.3, -21}, {-74, -21}, {-74, -5}, {-59.2, -5}}, color = {0, 0, 127}, smooth = Smooth.None));
+  connect(convVec2Sca1.ss1, convSca2Sca.ss1) annotation(Line(points = {{21.6, -78}, {56, -78}}, color = {255, 0, 0}, smooth = Smooth.None));
+  connect(convVec2Sca1.ss1, massT.surf) annotation(Line(points = {{21.6, -78}, {38, -78}, {38, -59.6}}, color = {255, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchanging.heatPort, convVec2Sca1.ss2) annotation(Line(points = {{-1, -78.1}, {2.8, -78.1}, {2.8, -78}, {8.4, -78}}, color = {255, 0, 0}, smooth = Smooth.None));
+  connect(convVec2Vec.vs2, pipeExchangingN1.heatPort) annotation(Line(points = {{-14, 28}, {-14, 16}, {-14, 3}, {-13.9, 3}}, color = {255, 0, 0}, smooth = Smooth.None));
+  connect(convVec2Vec.vs1, pipeExchangingN.heatPort) annotation(Line(points = {{-14, 40}, {-14, 52}, {-14, 63}, {-13.9, 63}}, color = {255, 0, 0}, smooth = Smooth.None));
+  connect(source_WT.water_flange, pipeExchangingN.water_flange1) annotation(Line(points = {{-46, 68}, {-22, 68}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN.water_flange2, sink_P.water_flange) annotation(Line(points = {{-6, 68}, {18, 68}, {18, 68}, {42, 68}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(source_WT1.water_flange, pipeExchangingN1.water_flange1) annotation(Line(points = {{-46, -2}, {-22, -2}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN1.water_flange2, sink_P1.water_flange) annotation(Line(points = {{-6, -2}, {38, -2}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(source_PT_fixed1.water_flange, pipeExchangingN3.water_flange1) annotation(Line(points = {{-82, -66}, {-72, -66}, {-72, -66}, {-58, -66}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN3.water_flange2, pipeExchanging.water_flange1) annotation(Line(points = {{-42, -66}, {-6, -66}, {-6, -70}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(pipeExchangingN4.water_flange1, pipeExchanging.water_flange2) annotation(Line(points = {{-42, -90}, {-6, -90}, {-6, -86}}, color = {0, 0, 0}, smooth = Smooth.None));
+  connect(sink_P_fixed1.water_flange, pipeExchangingN4.water_flange2) annotation(Line(points = {{-82, -90}, {-72, -90}, {-72, -90}, {-58, -90}}, color = {0, 0, 0}, smooth = Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics));
+end test2_Pipe;

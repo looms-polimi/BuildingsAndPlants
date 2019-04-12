@@ -1,0 +1,7 @@
+BaseClasses
+HeatPump_ConstantCOPheat
+HeatPump_ConstantCOPcool
+HeatPump_CarnotCOPheat_eta
+HeatPump_CarnotCOPcool_eta
+HeatPump_LinearCOPheat
+HeatPump_LinearCOPcool
